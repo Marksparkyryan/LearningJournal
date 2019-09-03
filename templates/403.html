@@ -1,0 +1,16 @@
+{% extends "layout.html" %} {% block content %}
+
+<section>
+  <div class="container">
+    <div class="edit-entry">
+      <h2>403</h2>
+      <div>
+        Whoa there! {{ message }} Let me take you back to
+        the
+        <a href="{{ url_for('index') }}">index</a>.
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

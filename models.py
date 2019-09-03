@@ -4,7 +4,7 @@ from peewee import *
 from flask_bcrypt import generate_password_hash
 from flask_login import UserMixin
 
-DATABASE = SqliteDatabase("journal.db")
+DATABASE = SqliteDatabase("journal.db", pragmas={'foreign_keys': 1})
 
 
 class User(UserMixin, Model):
@@ -41,7 +41,7 @@ class Entry(Model):
     date = DateField()
     time_spent = IntegerField()
     resources = TextField()
-    slug = CharField()
+    slug = CharField(primary_key=True, unique=True)
 
     class Meta:
         database = DATABASE
@@ -62,17 +62,22 @@ class Entry(Model):
                     slug=joined,
                 )
         except IntegrityError:
-            pass
+            return IntegrityError
 
-    def get_tags(self):
-        """get users following current user"""
-        return (
-            Entry.select().join(
-                EntryTag, on=EntryTag.entry
+    @property
+    def text_tags(self):
+        q = (
+            Tag.select().join(
+                EntryTag, on=EntryTag.tag
             ).where(
-                EntryTag.tag == self
+                EntryTag.entry == self
             )
         )
+
+        tag_text = ""
+        for tag in q:
+            tag_text += tag.topic + " "
+        return tag_text
 
 
 class Tag(Model):
@@ -83,11 +88,14 @@ class Tag(Model):
 
 
 class EntryTag(Model):
-    entry = ForeignKeyField(model=Entry, backref="tags")
+    entry = ForeignKeyField(model=Entry, backref="tags", on_delete="CASCADE")
     tag = ForeignKeyField(model=Tag, backref="related_to")
 
     class Meta:
         database = DATABASE
+        indexes = (
+            (("entry", "tag"), True),
+        )
 
 
 def initialize_database():

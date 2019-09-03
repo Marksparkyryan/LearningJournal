@@ -1,77 +1,58 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>MyJournal</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Cousine:400"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Work+Sans:600"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../static/css/normalize.css" />
-    <link rel="stylesheet" href="../static/css/site.css" />
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <div class="site-header">
-          <a class="logo" href="{{ url_for('index') }}"
-            ><i class="material-icons">library_books</i></a
-          >
-          <a class="button icon-right" href="{{ url_for('add') }}"
-            ><span>New Entry</span> <i class="material-icons">add</i></a
-          >
+{% extends 'layout.html' %} {% block content %}
+<section>
+  <div class="container">
+    <div class="entry-list single">
+      <article>
+        <h1>{{ entry.title }}</h1>
+        <time datetime="{{ entry.date }}">{{ entry.date }}</time>
+        <div class="entry">
+          <h3>Time Spent:</h3>
+          <p>{{ entry.time_spent }} Hours</p>
         </div>
-      </div>
-    </header>
-    <section>
-      <div class="container">
-        <div class="entry-list single">
-          <article>
-            <h1>{{ entry.title }}</h1>
-            <time datetime="{{ entry.date }}">{{ entry.date }}</time>
-            <div class="entry">
-              <h3>Time Spent:</h3>
-              <p>{{ entry.time_spent }} Hours</p>
-            </div>
-            <div class="entry">
-              <h3>What I Learned:</h3>
-              <p>
-                {{ entry.content }}
-              </p>
-            </div>
-            <div class="entry">
-              <h3>Resources to Remember:</h3>
+        <div class="entry">
+          <h3>What I Learned:</h3>
+          <p>
+            {{ entry.content }}
+          </p>
+        </div>
+        <div class="entry">
+          <h3>Resources to Remember:</h3>
 
-              <ul>
-                {% for resource in entry.resources %}
-                <li>
-                  <a href="{{ resource.link }}">{{ resource.name }}</a>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-          </article>
+          <ul>
+            {% if resources.items() %} 
+            {% for key, value in resources.items() %}
+            {% if value != "" %}
+            <li>
+              {{ key }} | <a href="{{ value }}">{{ value }}</a>
+            </li>
+            {% else %}
+            <li>
+              {{ key }}
+            </li>
+            {% endif%}
+            {% endfor %} 
+            {% else %}
+            <li>
+              Add some resources here!
+            </li>
+            {% endif %}
+          </ul>
         </div>
-      </div>
-      <div class="edit">
-        <p><a href="{{ url_for('edit', id=entry.id) }}">Edit Entry</a></p>
-      </div>
-    </section>
-    <footer>
-      <div>
-        &copy; MyJournal
-      </div>
-    </footer>
-  </body>
-</html>
+        <div class="entry">
+          <h3>Tags:</h3>
+          <p></p>
+          {% if entry.text_tags %} {% for tag in entry.text_tags.split() %}
+          <a class="button" href="{{ url_for('index', tag=tag)}}">{{ tag }}</a>
+
+          {% endfor %} {% else %}
+          <P>Add some #tags here!</P>
+          {% endif %}
+        </div>
+      </article>
+    </div>
+  </div>
+  <div class="edit">
+    <p><a href="{{ url_for('edit', slug=entry.slug)}}">Edit Entry</a></p>
+  </div>
+</section>
+{% endblock %}

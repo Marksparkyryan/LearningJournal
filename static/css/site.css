@@ -1,84 +1,120 @@
-
-
 /* ==========================================================================
    Global Styles
    ========================================================================== */
 
 body {
-	font-size: 16px;
-	color: #404a49;
-	font-family: 'Cousine', serif;
-	font-weight: 400;
+  font-size: 16px;
+  color: #404a49;
+  font-family: "Cousine", serif;
+  font-weight: 400;
 }
 .container {
-	margin: 0 auto;
-	padding: 0 25px;
+  margin: 0 auto;
+  padding: 0 25px;
 }
 header .site-header {
-	margin: 0 auto;
-	height: 95px;
+  margin: 0 auto;
+  height: 95px;
 }
 header .logo i {
-	color: #678f89;
-	margin: 20px 0 0 -5px;
-	float: left;
-	font-size: 40px;
+  color: #678f89;
+  margin: 20px 0 0 -5px;
+  float: left;
+  font-size: 40px;
 }
 header .button {
-	float: right;
-	margin: 33px 0 0 0;
+  float: right;
+  margin: 33px 4px;
 }
 footer {
-	text-align: center;
-	padding: 35px 0;
-	border-top: 2px dotted #678f89;
+  text-align: center;
+  padding: 35px 0;
+  border-top: 2px dotted #678f89;
+}
+.messages {
+  margin: 5px 15px;
+  padding-top: 2px;
+  float: right;
 }
 
+.notification {
+  width: 450px;
+  height: 50px;
+  background: rgba(103, 58, 183, 0.65);
+  color: white;
+  border-radius: 0px;
+  box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 99;
+  opacity: 0;
+  transition: opacity 330ms linear;
+  transition-delay: 3s;
+}
 
+.notification p {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.validation {
+  background: #FFE6B2;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: #C5A14E;
+}
 
 /* ==========================================================================
    Button Styles
    ========================================================================== */
 
 .button {
-	padding: 8px 10px 6px 10px;
-	background: #678f89;
-	border: 2px solid #678f89;
-	border-radius: 4px;
-	text-decoration: none;
-	color: #FFF;
-	position: relative;
-	text-align: center;
-	font-size: 14px;
+  padding: 8px 10px 6px 10px;
+  background: #678f89;
+  border: 2px solid #678f89;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  text-align: center;
+  font-size: 14px;
 }
 .button.button-secondary {
-	background: #FFF;
-	border: 2px solid #e1e1e1;
-	color: #404a49;
+  background: #fff;
+  border: 2px solid #e1e1e1;
+  color: #404a49;
+}
+.button.button-warning {
+  background: rgb(201, 43, 43);
+  border: 2px solid #e1e1e1;
+  color: #ffffff;
 }
 .button.icon-right {
-	padding-right: 30px;
-	top: -10px;
+  padding-right: 30px;
+  top: -10px;
 }
 .button.icon-left {
-	padding-left: 30px;
-	top: -10px;
+  padding-left: 30px;
+  top: -10px;
 }
 .button.icon-right i {
-	position: absolute;
-	top: 3px;
-	right: 3px;
+  position: absolute;
+  top: 3px;
+  right: 3px;
 }
 .button.icon-left i {
-	position: absolute;
-	top: 3px;
-	left: 3px;
+  position: absolute;
+  top: 3px;
+  left: 3px;
 }
 .button:focus {
-	outline: 0;
+  outline: 0;
 }
-
-
 
 /* ==========================================================================
    Typography
@@ -87,50 +123,48 @@ footer {
 h1,
 h2,
 h3 {
-	margin: 0;
-	font-weight: 400;
-	line-height: 1em;
-	color: #000;
+  margin: 0;
+  font-weight: 400;
+  line-height: 1em;
+  color: #000;
 }
 h1 {
-	font-size: 44px;
-	margin-bottom: 12px;
+  font-size: 44px;
+  margin-bottom: 12px;
 }
 h2 {
-	font-size: 32px;
+  font-size: 32px;
 }
 h2 a {
-	text-decoration: none;
-	color: #000;
+  text-decoration: none;
+  color: #000;
 }
 h3 {
-	font-size: 18px;
-	font-family: 'Work Sans', serif;
-	font-weight: 600;
-	text-transform: uppercase;
+  font-size: 18px;
+  font-family: "Work Sans", serif;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 p {
-	line-height: 1.8em;
-	font-size: 18px;
+  line-height: 1.8em;
+  font-size: 18px;
 }
 p a {
-	border-bottom: 2px solid #678f89;
-	padding: 0;
-	color: #678f89;
-	text-decoration: none;
+  border-bottom: 2px solid #678f89;
+  padding: 0;
+  color: #678f89;
+  text-decoration: none;
 }
 ul li {
-	line-height: 1.8em;
-	font-size: 18px;
+  line-height: 1.8em;
+  font-size: 18px;
 }
 ul li a {
-	border-bottom: 2px solid #678f89;
-	line-height: 1.8em;
-	color: #678f89;
-	text-decoration: none;
+  border-bottom: 2px solid #678f89;
+  line-height: 1.8em;
+  color: #678f89;
+  text-decoration: none;
 }
-
-
 
 /* ==========================================================================
    Page Styles
@@ -139,101 +173,90 @@ ul li a {
 .entry-list,
 .edit-entry,
 .new-entry {
-	max-width: 800px;
-	margin: 0 auto;
-	padding: 70px 0 150px 0;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 70px 0 150px 0;
 }
 .edit-entry h2,
 .new-entry h2 {
-	margin-bottom: 35px;
+  margin-bottom: 35px;
 }
+/* addition */
+.entry-list h2 {
+  margin-bottom: 70px;
+  text-align: center;
+}
+
 .entry-list article {
-	margin-bottom: 70px;
-	text-align: center;
+  margin-bottom: 70px;
+  text-align: center;
 }
 .entry-list article:last-child {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 .entry-list article h2 {
-	margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 .entry-list.single {
-	padding-bottom: 70px;
+  padding-bottom: 70px;
 }
 .entry-list.single time {
-	font-size: 18px;
+  font-size: 18px;
 }
 .entry {
-	max-width: 800px;
-	margin: 75px auto 0 auto;
-	text-align: left;
+  max-width: 800px;
+  margin: 75px auto 0 auto;
+  text-align: left;
 }
 .entry p {
-	margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 .edit {
-	padding-bottom: 80px;
-	text-align: center;
-	margin: 0 auto;
+  padding-bottom: 80px;
+  text-align: center;
+  margin: 0 auto;
 }
 .edit a {
-	font-weight: 400;
-	text-transform: uppercase;
-	font-size: 18px;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 18px;
 }
-
-
 
 /* ==========================================================================
    Form Styles
    ========================================================================== */
 
-
 form label {
-	display: block;
-	margin-bottom: 8px;
+  display: block;
+  margin-bottom: 8px;
 }
-form input[type=text],
-form input[type=password],
-form input[type=date],
+form input[type="text"],
+form input[type="password"],
+form input[type="date"],
 form textarea {
-	border: 2px solid #e1e1e1;
-	font-size: 18px;
-	line-height: 1.8em;
-	padding:10px 13px;
-	margin-bottom: 30px;
-	border-radius: 4px;
-	width: calc(100% - 32px);
+  border: 2px solid #e1e1e1;
+  font-size: 18px;
+  line-height: 1.8em;
+  padding: 10px 13px;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  width: calc(100% - 32px);
 }
-form input[type=text]:focus,
-form input[type=date]:focus,
-form input[type=password]:focus,
+form input[type="text"]:focus,
+form input[type="date"]:focus,
+form input[type="password"]:focus,
 form textarea:focus {
-	outline: 0;
-	border-color: #678f89;
+  outline: 0;
+  border-color: #678f89;
 }
-form input[type=text]:hover,
-form input[type=date]:hover
-form textarea:hover {
-	border-color: #678f89;
+form input[type="text"]:hover,
+form input[type="date"]:hover form textarea:hover {
+  border-color: #678f89;
 }
 .edit-entry form textarea,
 .new-entry form textarea {
-	min-height: 200px;
+  min-height: 200px;
 }
-input[type=submit] {
-	margin-right: 5px;
+input[type="submit"] {
+  margin-right: 5px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

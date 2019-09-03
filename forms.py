@@ -34,7 +34,45 @@ class AddEntryForm(FlaskForm):
         ]
     )
     resources = TextAreaField(
-        "resource title, wwww.resourcelink.com",
+        "example title example link \nexample title example link",
+    )
+    text_tags = StringField(
+        "#exampletag #exampletag",
+
+    )
+
+
+class EditEntryForm(FlaskForm):
+    title = StringField(
+        "Title",
+        validators=[
+            DataRequired()
+        ]
+    )
+    content = TextAreaField(
+        "What I learned",
+        validators=[
+            DataRequired()
+        ]
+    )
+    date = DateField(
+        "Date",
+        validators=[
+            DataRequired()
+        ],
+        format="%Y-%m-%d",
+    )
+    time_spent = IntegerField(
+        "Time Spent (hours)",
+        validators=[
+            DataRequired()
+        ]
+    )
+    resources = TextAreaField(
+        "Resources",
+    )
+    text_tags = StringField(
+        "Tags",
     )
 
 

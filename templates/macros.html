@@ -1,7 +1,7 @@
 {% macro render_field(field) %}
 <div class="field">
   {% if field.errors %} {% for error in field.errors %}
-  <div class="notification error">{{ error }}</div>
+  <div class="validation">{{ error }}</div>
   {% endfor %} {% endif %}
   <label>{{ field.label }}</label>
   {{ field }}
