@@ -67,7 +67,7 @@ The following requirements can be accessed via requirements.txt
 
 <br/>
 
-<img width="2047" alt="Screen Shot 2019-09-09 at 5 02 30 PM" src="https://user-images.githubusercontent.com/45185244/64566330-bd9cd980-d323-11e9-81b9-b879562cc7e3.png">
+<img width="2047" alt="Screen Shot 2019-09-09 at 5 03 15 PM" src="https://user-images.githubusercontent.com/45185244/64566395-e58c3d00-d323-11e9-9375-afe1c1745602.png">
 
 <br/>
 
