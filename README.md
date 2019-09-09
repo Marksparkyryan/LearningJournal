@@ -51,22 +51,25 @@ The following requirements can be accessed via requirements.txt
 
 # screenshots
 
-<img width="2048" alt="Screen Shot 2019-09-09 at 3 56 06 PM" src="https://user-images.githubusercontent.com/45185244/64562180-5fb7c400-d31a-11e9-9636-804409c90211.png">
+<img width="2046" alt="Screen Shot 2019-09-09 at 4 58 24 PM" src="https://user-images.githubusercontent.com/45185244/64566074-1c158800-d323-11e9-8c30-a0888336432f.png">
 
 <br/>
 
-<img width="2048" alt="Screen Shot 2019-09-09 at 3 56 57 PM" src="https://user-images.githubusercontent.com/45185244/64562212-7cec9280-d31a-11e9-8ceb-679d59a41437.png">
+<img width="2048" alt="Screen Shot 2019-09-09 at 4 59 33 PM" src="https://user-images.githubusercontent.com/45185244/64566131-3c454700-d323-11e9-9d82-7abaa6971da4.png">
 
 <br/>
 
-<img width="2047" alt="Screen Shot 2019-09-09 at 3 59 08 PM" src="https://user-images.githubusercontent.com/45185244/64562348-d359d100-d31a-11e9-8a19-da11a14afdcf.png">
+<img width="1586" alt="Screen Shot 2019-09-09 at 5 01 19 PM" src="https://user-images.githubusercontent.com/45185244/64566222-76aee400-d323-11e9-9e81-aac4f45b1fa2.png">
 
 <br/>
 
-<img width="2047" alt="Screen Shot 2019-09-09 at 4 00 17 PM" src="https://user-images.githubusercontent.com/45185244/64562510-216ed480-d31b-11e9-882a-4603e01fce37.png">
+<img width="2047" alt="Screen Shot 2019-09-09 at 5 02 30 PM" src="https://user-images.githubusercontent.com/45185244/64566295-a52cbf00-d323-11e9-9989-87f55a74887f.png">
 
 <br/>
 
+<img width="2047" alt="Screen Shot 2019-09-09 at 5 02 30 PM" src="https://user-images.githubusercontent.com/45185244/64566330-bd9cd980-d323-11e9-81b9-b879562cc7e3.png">
+
+<br/>
 
 
 # credits
