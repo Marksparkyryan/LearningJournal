@@ -49,6 +49,17 @@ The following requirements can be accessed via requirements.txt
 
 <br/>
 
+# usage
+
+By default, DEBUG mode is set to True in app.py. This is good for testing but not good for deployment. If deploying, make sure
+DEBUG is set to False.
+
+If deploying, the secret key should be replaced in app.py - ideally inside an environment variable.
+
+By default, DUMMYDATA mode is set to True in app.py. DUMMYDATA populates the database with generic admin user, entry, resource, and tag data. To prevent this, set DUMMYDATA to False.
+
+<br/>
+
 # screenshots
 
 <img width="2046" alt="Screen Shot 2019-09-09 at 4 58 24 PM" src="https://user-images.githubusercontent.com/45185244/64566074-1c158800-d323-11e9-8c30-a0888336432f.png">
