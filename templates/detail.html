@@ -21,7 +21,9 @@
             {% for resource in entry.rez %} {% if resource.link %}
             <li>
               {{ resource.title }} |
-              <a href="{{ resource.link }}" target="_blank"> {{ resource.link }}</a>
+              <a href="{{ resource.link }}" target="_blank">
+                {{ resource.link }}</a
+              >
             </li>
             {% else %}
             <li>
@@ -35,7 +37,9 @@
           <p></p>
           {% if entry.tags %} {% for tag in entry.tags.split() %}
 
-          <a class="buttontag" href="{{ url_for('index', tag=tag)}}">{{ tag }}</a>
+          <a class="buttontag" href="{{ url_for('index', tag=tag)}}">{{
+            tag
+          }}</a>
 
           {% endfor %} {% else %}
           <P>Add some #tags here!</P>

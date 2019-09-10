@@ -8,6 +8,8 @@ from models import User
 
 
 class AddEntryForm(FlaskForm):
+    """Form to add data to a journal entry"""
+
     title = StringField(
         "Title",
         validators=[
@@ -46,6 +48,8 @@ class AddEntryForm(FlaskForm):
 
 
 class EditEntryForm(FlaskForm):
+    """Form to edit data in existing entry"""
+
     title = StringField(
         "Title",
         validators=[
@@ -80,6 +84,8 @@ class EditEntryForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
+    """Form to capture user credentials to create user session"""
+
     email = StringField(
         "email",
         validators=[
@@ -95,16 +101,22 @@ class LoginForm(FlaskForm):
 
 
 def name_exists(form, field):
+    """Verifies that username is unique"""
+
     if User.select().where(User.username == field.data).exists():
         raise ValidationError("User with that username already exists!")
 
 
 def email_exists(form, field):
+    """Verifies that email address is unique"""
+
     if User.select().where(User.email == field.data).exists():
         raise ValidationError("User with that email already exists!")
 
 
 class SignUpForm(FlaskForm):
+    """Form to capture new user data"""
+
     username = StringField(
         "username",
         validators=[

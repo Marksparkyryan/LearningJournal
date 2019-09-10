@@ -3,7 +3,8 @@ import datetime
 from flask_bcrypt import generate_password_hash
 from flask_login import UserMixin
 from peewee import (Model, CharField, BooleanField, IntegerField, TextField,
-                    ForeignKeyField, DateField, IntegrityError, SqliteDatabase)
+                    ForeignKeyField, DateField, IntegrityError, SqliteDatabase,
+                    DoesNotExist)
 
 
 DATABASE = SqliteDatabase("journal.db", pragmas={'foreign_keys': 1})

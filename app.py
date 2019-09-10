@@ -14,6 +14,7 @@ import models
 import forms
 import dummy_data
 
+
 DUMMYDATA = True
 DEBUG = True
 PORT = 8000
@@ -29,6 +30,8 @@ login_manager.login_view = "login"
 
 @login_manager.user_loader
 def load_user(userid):
+    """Retrieves instance of User"""
+
     try:
         return models.User.get(models.User.id == userid)
     except models.DoesNotExist:
@@ -36,6 +39,8 @@ def load_user(userid):
 
 
 def check_ownership(func):
+    """Verifies that current user is owner of requested post"""
+
     @wraps(func)
     def decorator(*args, **kwargs):
         slug = kwargs["slug"]
@@ -53,6 +58,10 @@ def check_ownership(func):
 
 @app.route("/login", methods=("GET", "POST",))
 def login():
+    """
+    View that requests user's credentials and creates a new session for user
+    """
+
     form = forms.LoginForm()
     if form.validate_on_submit():
         try:
@@ -69,12 +78,14 @@ def login():
             if next:
                 if not safe:
                     return abort(400, "That's not a valid redirect.")
-        return redirect(next or url_for('index'))
+            return redirect(next or url_for('index'))
     return render_template("login.html", form=form)
 
 
 @app.route("/logout")
 def logout():
+    """Ends current user's session"""
+
     logout_user()
     flash("You've been logged out!")
     return redirect(url_for('index'))
@@ -82,6 +93,8 @@ def logout():
 
 @app.route("/signup", methods=("GET", "POST",))
 def signup():
+    """Registers new user if they don't already exist"""
+
     form = forms.SignUpForm()
     if form.validate_on_submit():
         models.User.create_user(
@@ -96,7 +109,11 @@ def signup():
 
 @app.before_request
 def before_request():
-    """Connect to the database before each request"""
+    """
+    Connect to the database before each request. Share the current 
+    user in a global variable.
+    """
+
     g.db = models.DATABASE
     g.db.connect()
     g.user = current_user
@@ -104,7 +121,10 @@ def before_request():
 
 @app.after_request
 def after_request(response):
-    """Close the database connection after each request"""
+    """
+    Close the database connection after each request and return a response
+    """
+
     g.db.close()
     return response
 
@@ -113,6 +133,8 @@ def after_request(response):
 @app.route("/entries")
 @app.route("/entries/<tag>/topic")
 def index(tag=None):
+    """Main view of journal. All entries are displayed here"""
+
     if tag:
         try:
             tag_model = models.Tag.get(
@@ -142,6 +164,8 @@ def index(tag=None):
 @app.route("/entries/new", methods=("GET", "POST",))
 @login_required
 def add():
+    """View to create new journal entry"""
+
     form = forms.AddEntryForm()
     if form.validate_on_submit():
         try:
@@ -172,6 +196,8 @@ def add():
 
 @app.route("/entries/<slug>", methods=("GET",))
 def detail(slug):
+    """View to display details of a single post"""
+
     try:
         entry = models.Entry.get(
             models.Entry.slug == slug
@@ -190,6 +216,8 @@ def detail(slug):
 @login_required
 @check_ownership
 def edit(slug):
+    """View to allow editing of a single post"""
+
     try:
         entry = models.Entry.get(
             models.Entry.slug == slug,
@@ -223,6 +251,8 @@ def edit(slug):
 @login_required
 @check_ownership
 def delete(slug):
+    """Deletes instance of current entry"""
+
     models.Entry.get(
         models.Entry.slug == slug
     ).delete_instance()
@@ -232,6 +262,8 @@ def delete(slug):
 
 @app.errorhandler(HTTPException)
 def http_error(HTTPException):
+    """Handles abort calls and renders appropriate error page"""
+
     return render_template(
         "{}.html".format(HTTPException.code),
         message=HTTPException.description), HTTPException.code

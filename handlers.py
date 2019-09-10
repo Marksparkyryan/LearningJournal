@@ -4,6 +4,11 @@ import models
 
 
 def tag_handler(entry, form):
+    """
+    Processes and validates tag data from new entries and existing 
+    entries being edited
+    """
+
     old_tags = entry.tags.split()
     new_data = form.tags.data
     tag_pattern = re.compile(r"[#]\w+\b")
@@ -44,6 +49,10 @@ def tag_handler(entry, form):
 
 
 def delete_tag_handler(entry):
+    """
+    Deletes existing tags if blank tag field is submitted on edit view
+    """
+
     delete_all_tags_query = models.EntryTag.select().where(
         models.EntryTag.entry == entry,
     )
@@ -52,13 +61,22 @@ def delete_tag_handler(entry):
 
 
 def resource_handler(entry, form):
+    """
+    Processes and validates resource data from new entries and existing 
+    entries being edited
+    """
+
     new_resources = form.resources.data.strip().splitlines()
     old_resources = entry.resources.splitlines()
     url_pattern = re.compile(
         r"(\b(http[s]*:\/\/|(www\.))(\S)*\b/?)")
-
+    
+    print("old resources: ", old_resources)
+    print("new resources: ", new_resources)
     for resource in old_resources:
+        print("resource in old: ", resource)
         if resource not in new_resources:
+            print("resource not in new: ", resource)
             url_match = url_pattern.search(resource)
             title = re.sub(url_pattern, "", resource)
             cleaned_title = cleaned_title = re.sub(
@@ -69,10 +87,11 @@ def resource_handler(entry, form):
                     models.Resource.entry == entry,
                 )
                 query.delete_instance()
+                print("deleted resource not in new", resource)
             except:
                 pass
 
-    for line in new_resources:
+    for line in new_resources:   
         url_match = url_pattern.search(line)
         title = re.sub(url_pattern, "", line)
         cleaned_title = cleaned_title = re.sub(
@@ -95,15 +114,20 @@ def resource_handler(entry, form):
                     models.Resource.title == cleaned_title,
                     models.Resource.link == url_match[0],
                 )
+                print("existing resource found", line)
             except models.DoesNotExist:
                 models.Resource.create(
                     entry=entry,
                     title=cleaned_title,
                     link=url_match[0],
                 )
-
+                print("resource not found, making new instance", line)
 
 def delete_resource_handler(entry):
+    """
+    Deletes existing resources if blank resource field is submitted on edit view
+    """
+
     delete_all_resources_query = models.Resource.select().where(
         models.Resource.entry == entry,
     )

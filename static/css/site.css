@@ -50,15 +50,27 @@ footer {
   left: 50%;
   transform: translate(-50%, 0);
   z-index: 99;
-  opacity: 0;
-  transition: opacity 330ms linear;
-  transition-delay: 3s;
+
+  animation: fade-out 2s;
+  animation-delay: 3s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
 }
 
 .notification p {
   text-align: center;
   vertical-align: middle;
   font-size: 14px;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .validation {
