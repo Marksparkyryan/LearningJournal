@@ -16,19 +16,16 @@ def tag_handler(entry, form):
     if old_tags:
         for tag in old_tags:
             if tag not in new_tags:
-                print("tag isn't in new tags")
                 try:
                     q = models.Tag.get(
                         models.Tag.topic == tag
                     )
-                    print(q.topic)
                     entry_tag = models.EntryTag.get(
                         models.EntryTag.tag == q,
                         models.EntryTag.entry == entry,
                     )
                     entry_tag.delete_instance()
                 except:
-                    print("something wrong in tag handler")
                     pass
     for tag in new_tags:
         try:
@@ -70,13 +67,9 @@ def resource_handler(entry, form):
     old_resources = entry.resources.splitlines()
     url_pattern = re.compile(
         r"(\b(http[s]*:\/\/|(www\.))(\S)*\b/?)")
-    
-    print("old resources: ", old_resources)
-    print("new resources: ", new_resources)
+
     for resource in old_resources:
-        print("resource in old: ", resource)
         if resource not in new_resources:
-            print("resource not in new: ", resource)
             url_match = url_pattern.search(resource)
             title = re.sub(url_pattern, "", resource)
             cleaned_title = cleaned_title = re.sub(
@@ -87,11 +80,10 @@ def resource_handler(entry, form):
                     models.Resource.entry == entry,
                 )
                 query.delete_instance()
-                print("deleted resource not in new", resource)
             except:
                 pass
 
-    for line in new_resources:   
+    for line in new_resources:
         url_match = url_pattern.search(line)
         title = re.sub(url_pattern, "", line)
         cleaned_title = cleaned_title = re.sub(
@@ -114,14 +106,13 @@ def resource_handler(entry, form):
                     models.Resource.title == cleaned_title,
                     models.Resource.link == url_match[0],
                 )
-                print("existing resource found", line)
             except models.DoesNotExist:
                 models.Resource.create(
                     entry=entry,
                     title=cleaned_title,
                     link=url_match[0],
                 )
-                print("resource not found, making new instance", line)
+
 
 def delete_resource_handler(entry):
     """
