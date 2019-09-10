@@ -8,6 +8,21 @@ DATABASE = SqliteDatabase("journal.db", pragmas={'foreign_keys': 1})
 
 
 class User(UserMixin, Model):
+    """User model data
+
+    Attributes:
+    username (str): user's name that will be displayed within app
+    email (str): user's email address
+    password (str): user's password (hashed)
+    is_admin (bool): user's admin status 
+
+    Methods:
+    create_user : instantiates User
+
+    Returns:
+    Instance of User
+    """
+
     username = CharField(max_length=32, unique=True)
     email = CharField(max_length=64, unique=True)
     password = CharField()
@@ -18,6 +33,17 @@ class User(UserMixin, Model):
 
     @classmethod
     def create_user(cls, username, email, password, admin=False):
+        """Instantiates User
+
+        Parameters:
+        @param username (str): user's name that will be displayed within app
+        email (str): user's email address
+        password (str): this gets hashed
+        is_admin (bool): by default is False, make True if user is admin
+
+        Returns:
+        Instance of User
+        """
         try:
             with DATABASE.transaction():
                 cls.create(
@@ -31,6 +57,25 @@ class User(UserMixin, Model):
 
 
 class Entry(Model):
+    """Entry model data
+
+    Attributes:
+    author (foreign key): author of Entry
+    title (str): title of Entry
+    content (str): content of Entry
+    date (datetime): date of Entry
+    time_spent (int): amount of time spent on learning content
+    slug (str): url-friendly version of entry title
+
+    Methods:
+    create_entry : instantiates entry
+    tags : returns all tags related to entry in string format
+    resources : returns all resources related to entry in string format
+
+    Returns:
+    Instance of Entry
+    """
+
     author = ForeignKeyField(
         model=User,
         backref="entries",
@@ -40,44 +85,66 @@ class Entry(Model):
     content = TextField()
     date = DateField()
     time_spent = IntegerField()
-    resources = TextField()
-    slug = CharField(primary_key=True, unique=True)
+    slug = CharField(unique=True)
 
     class Meta:
         database = DATABASE
 
     @classmethod
-    def create_entry(cls, author, title, content, date, time_spent, resources):
+    def create_entry(cls, author, title, content, date, time_spent):
+        """Instantiates Entry
+
+        Parameters:
+        author (foreign key): 
+        """
         try:
             with DATABASE.transaction():
-                # replace title whitespace with dashes
-                joined = "-".join(title.lower().split())
                 cls.create(
                     author=author,
                     title=title,
                     content=content,
                     date=date,
                     time_spent=time_spent,
-                    resources=resources,
-                    slug=joined,
+                    slug="-".join(title.lower().split()),
                 )
         except IntegrityError:
             return IntegrityError
 
     @property
-    def text_tags(self):
-        q = (
-            Tag.select().join(
-                EntryTag, on=EntryTag.tag
-            ).where(
-                EntryTag.entry == self
-            )
+    def tags(self):
+        query = Tag.select().join(
+            EntryTag, on=EntryTag.tag
+        ).where(
+            EntryTag.entry == self
         )
-
         tag_text = ""
-        for tag in q:
+        for tag in query:
             tag_text += tag.topic + " "
         return tag_text
+
+    @property
+    def resources(self):
+        query = Resource.select().where(
+            Resource.entry == self
+        )
+        resource_text = ""
+        for resource in query:
+            if resource.link:
+                resource_text += resource.title + resource.link + "\n"
+            else:
+                resource_text += resource.title + "\n"
+        return resource_text
+
+
+class Resource(Model):
+    entry = ForeignKeyField(
+        model=Entry, backref="rez", on_delete="CASCADE"
+    )
+    title = CharField()
+    link = CharField(null=True)
+
+    class Meta:
+        database = DATABASE
 
 
 class Tag(Model):
@@ -88,7 +155,7 @@ class Tag(Model):
 
 
 class EntryTag(Model):
-    entry = ForeignKeyField(model=Entry, backref="tags", on_delete="CASCADE")
+    entry = ForeignKeyField(model=Entry, backref="tagz", on_delete="CASCADE")
     tag = ForeignKeyField(model=Tag, backref="related_to")
 
     class Meta:
@@ -100,5 +167,5 @@ class EntryTag(Model):
 
 def initialize_database():
     DATABASE.connect()
-    DATABASE.create_tables([User, Entry, Tag, EntryTag], safe=True)
+    DATABASE.create_tables([User, Entry, Resource, Tag, EntryTag], safe=True)
     DATABASE.close()

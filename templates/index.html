@@ -14,8 +14,8 @@
         </h2>
         <time datetime="{{ entry.date }}">{{ entry.date }}</time>
         <p></p>
-        {% if entry.text_tags %} {% for tag in entry.text_tags.split() %}
-        <a class="button" href="{{ url_for('index', tag=tag)}}">{{ tag }}</a>
+        {% if entry.tags %} {% for tag in entry.tags.split() %}
+        <a class="buttontag" href="{{ url_for('index', tag=tag)}}">{{ tag }}</a>
 
         {% endfor %} {% else %}
         <P>Add some #tags here!</P>

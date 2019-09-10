@@ -1,7 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, TextAreaField, PasswordField
-from wtforms.validators import DataRequired
 from wtforms.fields.html5 import DateField
+from wtforms.validators import (DataRequired, Email, ValidationError, Length,
+                                EqualTo, Regexp)
+
+from models import User
 
 
 class AddEntryForm(FlaskForm):
@@ -36,7 +39,7 @@ class AddEntryForm(FlaskForm):
     resources = TextAreaField(
         "example title example link \nexample title example link",
     )
-    text_tags = StringField(
+    tags = StringField(
         "#exampletag #exampletag",
 
     )
@@ -71,7 +74,7 @@ class EditEntryForm(FlaskForm):
     resources = TextAreaField(
         "Resources",
     )
-    text_tags = StringField(
+    tags = StringField(
         "Tags",
     )
 
@@ -85,6 +88,53 @@ class LoginForm(FlaskForm):
     )
     password = PasswordField(
         "password",
+        validators=[
+            DataRequired()
+        ]
+    )
+
+
+def name_exists(form, field):
+    if User.select().where(User.username == field.data).exists():
+        raise ValidationError("User with that username already exists!")
+
+
+def email_exists(form, field):
+    if User.select().where(User.email == field.data).exists():
+        raise ValidationError("User with that email already exists!")
+
+
+class SignUpForm(FlaskForm):
+    username = StringField(
+        "username",
+        validators=[
+            DataRequired(),
+            name_exists,
+            Regexp(
+                r"^[a-zA-Z0-9_]+$",
+                message="Username should be one word, letters, numbers, "
+                "and underscores only."
+            )
+        ]
+    )
+    email = StringField(
+        "email",
+        validators=[
+            DataRequired(),
+            Email(),
+            email_exists,
+        ]
+    )
+    password = PasswordField(
+        "password",
+        validators=[
+            DataRequired(),
+            Length(min=8),
+            EqualTo("password2", message="Passwords must match!")
+        ]
+    )
+    password2 = PasswordField(
+        "confirm password",
         validators=[
             DataRequired()
         ]

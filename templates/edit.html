@@ -16,8 +16,8 @@ block content %}
         {{ form.content }}
         <label for="resources">Resources to Remember</label>
         {{ form.resources }}
-        <label for="text_tags">Tags</label>
-        {{ form.text_tags() }}
+        <label for="tags">Tags</label>
+        {{ form.tags }}
         <input type="submit" value="Confirm Changes" class="button" />
         <a
           href="{{ url_for('detail', slug=entry.slug)}}"

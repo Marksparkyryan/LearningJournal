@@ -2,8 +2,9 @@
 <div class="field">
   {% if field.errors %} {% for error in field.errors %}
   <div class="validation">{{ error }}</div>
-  {% endfor %} {% endif %}
+  {% endfor %} {% endif %} {% if field.widget.input_type != "hidden" %}
   <label>{{ field.label }}</label>
   {{ field }}
+  {% endif %}
 </div>
 {% endmacro %}

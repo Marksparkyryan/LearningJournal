@@ -17,32 +17,25 @@
         </div>
         <div class="entry">
           <h3>Resources to Remember:</h3>
-
           <ul>
-            {% if resources.items() %} 
-            {% for key, value in resources.items() %}
-            {% if value != "" %}
+            {% for resource in entry.rez %} {% if resource.link %}
             <li>
-              {{ key }} | <a href="{{ value }}">{{ value }}</a>
+              {{ resource.title }} |
+              <a href="{{ resource.link }}" target="_blank"> {{ resource.link }}</a>
             </li>
             {% else %}
             <li>
-              {{ key }}
+              {{ resource.title }}
             </li>
-            {% endif%}
-            {% endfor %} 
-            {% else %}
-            <li>
-              Add some resources here!
-            </li>
-            {% endif %}
+            {% endif %} {% endfor %}
           </ul>
         </div>
         <div class="entry">
           <h3>Tags:</h3>
           <p></p>
-          {% if entry.text_tags %} {% for tag in entry.text_tags.split() %}
-          <a class="button" href="{{ url_for('index', tag=tag)}}">{{ tag }}</a>
+          {% if entry.tags %} {% for tag in entry.tags.split() %}
+
+          <a class="buttontag" href="{{ url_for('index', tag=tag)}}">{{ tag }}</a>
 
           {% endfor %} {% else %}
           <P>Add some #tags here!</P>

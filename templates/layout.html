@@ -26,6 +26,10 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/site.css')}}"
     />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+    />
   </head>
   <body>
     <header>
@@ -43,27 +47,29 @@
           <a class="button icon-right" href="{{ url_for('login') }}"
             ><span>Log In</span> <i class="material-icons"></i
           ></a>
+          <a class="button icon-right" href="{{ url_for('signup') }}"
+            ><span>Sign Up!</span> <i class="material-icons"></i
+          ></a>
           {% endif %}
           <a class="button icon-right" href="{{ url_for('add') }}"
             ><span>New Entry</span> <i class="material-icons">add</i></a
           >
         </div>
         <!-- Flash messages -->
-    {% with messages = get_flashed_messages() %} {% if messages %} {% for
-      message in messages %}
-      <div class="notification">
-        <p>{{ message }}</p>
-      </div>
-      {% endfor %} {% endif %} {% endwith %}
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for
+        message in messages %}
+        <div class="notification">
+          <p>{{ message }}</p>
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
       </div>
     </header>
 
     {% block content %} {% endblock %}
-    
   </body>
   <footer>
     <div>
-      &copy; MyJournal
+      &copy; LearningJournal
     </div>
   </footer>
 </html>
