@@ -56,7 +56,7 @@ DEBUG is set to False.
 
 If deploying, the secret key should be replaced in app.py - ideally inside an environment variable.
 
-By default, DUMMYDATA mode is set to True in app.py. DUMMYDATA populates the database with generic admin user, entry, resource, and tag data. To prevent this, set DUMMYDATA to False.
+By default, DUMMYDATA mode is set to True in app.py. DUMMYDATA populates the database with generic admin user (email=janedoe@email.com, password=password), entry, resource, and tag data. To prevent this, set DUMMYDATA to False.
 
 <br/>
 
