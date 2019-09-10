@@ -42,8 +42,8 @@ The following requirements can be accessed via requirements.txt
 2. git clone ```https://github.com/Marksparkyryan/LearningJournal.git``` to clone the app
 3. ```virtualenv .venv``` to create your virtual environment
 4. ```source .venv/bin/activate``` to activate the virtual environment
-5. ```pip install -r storeinventory/requirements.txt``` to install app requirements
-6. cd into the storeinventory directory
+5. ```pip install -r LearningJournal/requirements.txt``` to install app requirements
+6. cd into the LearningJournal directory
 7. ```python app.py``` to run the app!
 
 
