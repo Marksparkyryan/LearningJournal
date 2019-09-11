@@ -26,6 +26,10 @@ header .button {
   float: right;
   margin: 33px 4px;
 }
+header .avatar {
+  float: right;
+  margin: 23px 4px;
+}
 footer {
   text-align: center;
   padding: 35px 0;
@@ -79,6 +83,20 @@ footer {
   padding: 10px 20px;
   border-radius: 4px;
   color: #c5a14e;
+}
+
+.avatar {
+  height: 15px;
+  width: 15px;
+  padding: 8px 10px;
+  background: rgba(103, 58, 183, 0.65);
+  border: 2px solid #678f89;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  text-align: center;
+  font-size: 14px;
 }
 
 /* ==========================================================================

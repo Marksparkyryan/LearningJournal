@@ -5,6 +5,9 @@
       <article>
         <h1>{{ entry.title }}</h1>
         <time datetime="{{ entry.date }}">{{ entry.date }}</time>
+        <p>
+          By <i>{{ entry.author.username }}</i>
+        </p>
         <div class="entry">
           <h3>Time Spent:</h3>
           <p>{{ entry.time_spent }} Hours</p>

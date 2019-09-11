@@ -39,7 +39,7 @@
             ><span></span><i class="material-icons">library_books</i></a
           >
           {% if current_user.is_authenticated %}
-
+          <a class="avatar icon-right">{{ current_user.username[0].upper() }}</a>
           <a class="button icon-right" href="{{ url_for('logout') }}"
             ><span>Log Out</span> <i class="material-icons"></i
           ></a>
